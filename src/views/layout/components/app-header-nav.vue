@@ -1,7 +1,7 @@
 <script lang="ts" setup name="AppHeaderNav">
 import useStore from '@/store/index'
 const { category } = useStore()
-category.getAllCategory()
+// category.getAllCategory()
 </script>
 
 <template>
@@ -9,15 +9,17 @@ category.getAllCategory()
         <li class="home">
             <RouterLink to="/">首页</RouterLink>
         </li>
-        <li v-for="item in category.categoryList" :key="item.id"><a href="#">{{ item.name }}</a>
+        <li v-for="item in category.categoryList" :key="item.id" @mouseenter="category.show(item.id)"
+            @mouseleave="category.hide(item.id)">
+            <RouterLink :to="`/category/${item.id}`" @click="category.hide(item.id)">{{ item.name }}</RouterLink>
 
-            <div class="layer">
+            <div class="layer" v-if="item.children" :class="{ open: item.open }">
                 <ul>
                     <li v-for="sub in item.children" :key="sub.id">
-                        <a href="#">
+                        <RouterLink :to="`/category/sub/${sub.id}`" @click="category.hide(item.id)">
                             <img :src="sub.picture" alt="" />
                             <p>{{ sub.name }}</p>
-                        </a>
+                        </RouterLink>
                     </li>
                 </ul>
             </div>
@@ -57,16 +59,21 @@ category.getAllCategory()
                 border-bottom: 1px solid @xtxColor;
             }
 
-            >.layer {
-                height: 132px;
-                opacity: 1;
-            }
+            // >.layer {
+            //     height: 132px;
+            //     opacity: 1;
+            // }
         }
     }
 }
 
 // 新增样式
 .layer {
+    &.open {
+        height: 132px;
+        opacity: 1;
+    }
+
     width: 1240px;
     background-color: #fff;
     position: absolute;
