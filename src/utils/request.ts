@@ -30,5 +30,5 @@ example.interceptors.response.use(
         return Promise.reject(error)
     }
 )
-
+//example 实例  这是axios的实例
 export default example
