@@ -8,3 +8,5 @@ export type CategoryGoods = {
     picture: string
     price: string
 }[]
+
+

@@ -24,7 +24,4 @@ category.getAllCategory()
 </template>
 
 <style lang="less" scoped>
-.app-body {
-    height: 1000px;
-}
 </style>

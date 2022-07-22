@@ -9,7 +9,7 @@ import router from '@/router/index'
 import { createPinia } from 'pinia'
 // 创建pinia实例并且通过插件挂载
 const pinia = createPinia()
-// 引入全局样式
+// 引入全局组件
 import XtxUI from './components'
 // 在vue实例上挂载插件并将vue挂载到根标签上
 createApp(App).use(router).use(pinia).use(XtxUI).mount('#app')
