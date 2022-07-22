@@ -17,23 +17,23 @@ const { target } = useLazyData(home.getNewGoodsList)
                 <XtxMore path="/" />
             </template>
             <!-- 面板内容 -->
-            <ul class="goods-list">
+            <ul class="goods-list" v-if="newGoods.length">
                 <li v-for="item in newGoods" :key="item.id">
-                    <template v-if="item.id">
-                        <!-- `/product/${item.id}` -->
-                        <RouterLink to="/">
-                            <img v-lazy="item.picture" alt="" />
-                            <p class="name ellipsis">{{ item.name }}</p>
-                            <p class="price">&yen;{{ item.price }}</p>
-                        </RouterLink>
-                    </template>
-                    <template v-else>
-                        <XtxSkeleton :width="306" :height="406" bg="rgba(255,255,255,0.2)" style="margin-right: 5px"
-                            fide animated></XtxSkeleton>
-                    </template>
+                    <!-- `/product/${item.id}` -->
+                    <RouterLink to="/">
+                        <img v-lazy="item.picture" alt="" />
+                        <p class="name ellipsis">{{ item.name }}</p>
+                        <p class="price">&yen;{{ item.price }}</p>
+                    </RouterLink>
                 </li>
-
             </ul>
+            <div class="home-skeleton" v-else>
+                <div class="item" v-for="i in 4" :key="i" :style="{ backgroundColor: '#f0f9f4' }">
+                    <XtxSkeleton bg="#e4e4e4" :width="306" :height="306" animated />
+                    <XtxSkeleton bg="#e4e4e4" :width="160" :height="24" animated />
+                    <XtxSkeleton bg="#e4e4e4" :width="120" :height="24" animated />
+                </div>
+            </div>
         </HomePanel>
     </div>
 </template>
@@ -63,6 +63,22 @@ const { target } = useLazyData(home.getNewGoodsList)
 
         .price {
             color: @priceColor;
+        }
+    }
+}
+
+.home-skeleton {
+    width: 1240px;
+    height: 406px;
+    display: flex;
+    justify-content: space-between;
+
+    .item {
+        width: 306px;
+
+        .xtx-skeleton~.xtx-skeleton {
+            display: block;
+            margin: 16px auto 0;
         }
     }
 }
