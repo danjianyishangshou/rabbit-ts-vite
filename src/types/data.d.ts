@@ -6,6 +6,3 @@ export interface ApiRes<T> {
     msg: string
     result: T
 }
-
-
-

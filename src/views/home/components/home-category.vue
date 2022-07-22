@@ -1,6 +1,6 @@
 <script lang="ts" setup name="HomeCategory">
-import useStore from '@/store';
-import { computed, ref } from 'vue';
+import useStore from '@/store'
+import { computed, ref } from 'vue'
 import { CategoryGoods } from '@/types/goods'
 // 左侧导航栏
 const { category } = useStore()
@@ -12,14 +12,26 @@ const goods = computed(() => {
 })
 </script>
 <template>
-    <div class="home-category">
+    <div class="home-category" @mouseleave="currentCategoryId = ''">
         <ul class="menu">
-            <li v-for="item in category.categoryList" :key="item.id" @mouseenter="currentCategoryId = item.id">
-                <RouterLink :to="`/category/${item.id}`">{{ item.name }}</RouterLink>
-                <RouterLink :to="`/category/sub/${sub.id}`" v-for="sub in item?.children?.slice(0, 2)" :key="sub.id">
-                    {{ sub.name }}
+            <li v-for="item in category.categoryList" :key="item.id" @mouseenter="currentCategoryId = item.id"
+                :class="{ active: currentCategoryId === item.id }">
+                <RouterLink :to="`/category/${item.id}`">
+                    {{ item.name }}
                 </RouterLink>
+                <template v-if="item.children">
+                    <RouterLink :to="`/category/sub/${sub.id}`" v-for="sub in item?.children.slice(0, 2)" :key="sub.id">
+                        {{ sub.name }}
+                    </RouterLink>
+                </template>
+                <template v-else>
+                    <XtxSkeleton :width="60" :height="18" bg="rgba(255,255,255,0.2)" style="margin-right: 5px" fide
+                        animated>
+                    </XtxSkeleton>
+                    <XtxSkeleton :width="50" :height="18" bg="rgba(255,255,255,0.2)" animated />
+                </template>
             </li>
+
         </ul>
         <!-- 弹层 -->
         <div class="layer" v-if="goods">
@@ -143,7 +155,8 @@ const goods = computed(() => {
             height: 55px;
             line-height: 55px;
 
-            &:hover {
+            &:hover,
+            &.active {
                 background: @xtxColor;
             }
 

@@ -20,3 +20,12 @@ export const useScroll = () => {
         y
     }
 }
+
+/**
+ * 延时调试的工具
+ * @param time 
+ * @returns 
+ */
+export const Delay = (time = 2000) => {
+    return new Promise((resolve) => setTimeout(resolve, time))
+}
