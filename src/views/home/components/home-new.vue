@@ -1,14 +1,17 @@
 <script lang="ts" setup name="HomeNew">
-import useStore from '@/store'
-import { storeToRefs } from 'pinia';
 import HomePanel from './home-panel.vue'
+import useStore from '@/store'
+import { storeToRefs } from 'pinia'
+// 引入组件数据懒加载的工具函数
+import { useLazyData } from '@/utils/hooks'
 const { home } = useStore()
-home.getNewGoodsList()
 const { newGoods } = storeToRefs(home)
+// 从组件懒加载中获取出来目标绑定元素
+const { target } = useLazyData(home.getNewGoodsList)
 
 </script>
 <template>
-    <div class="home-new">
+    <div class="home-new" ref="target">
         <HomePanel title="新鲜好物" sub-title="新鲜出炉 品质靠谱">
             <template #right>
                 <XtxMore path="/" />
@@ -16,13 +19,20 @@ const { newGoods } = storeToRefs(home)
             <!-- 面板内容 -->
             <ul class="goods-list">
                 <li v-for="item in newGoods" :key="item.id">
-                    <!-- `/product/${item.id}` -->
-                    <RouterLink to="/">
-                        <img v-lazy="item.picture" alt="" />
-                        <p class="name ellipsis">{{ item.name }}</p>
-                        <p class="price">&yen;{{ item.price }}</p>
-                    </RouterLink>
+                    <template v-if="item.id">
+                        <!-- `/product/${item.id}` -->
+                        <RouterLink to="/">
+                            <img v-lazy="item.picture" alt="" />
+                            <p class="name ellipsis">{{ item.name }}</p>
+                            <p class="price">&yen;{{ item.price }}</p>
+                        </RouterLink>
+                    </template>
+                    <template v-else>
+                        <XtxSkeleton :width="306" :height="406" bg="rgba(255,255,255,0.2)" style="margin-right: 5px"
+                            fide animated></XtxSkeleton>
+                    </template>
                 </li>
+
             </ul>
         </HomePanel>
     </div>
