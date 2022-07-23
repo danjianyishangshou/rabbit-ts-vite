@@ -3,7 +3,7 @@ const props = defineProps<{
     title?: string,
     subTitle?: string
 }>()
-const { title = '大标题', subTitle = '副标题' } = props
+const { title = '大标题', subTitle = '' } = props
 </script>
 <template>
     <div class="home-panel">

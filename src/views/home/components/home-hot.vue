@@ -8,22 +8,24 @@ const { target } = useLazyData(home.getHotGoodsList)
 </script>
 <template>
     <HomePanel title="人气推荐" sub-title="人气爆款 不容错过" ref="target">
-        <ul ref="pannel" class="goods-list" v-if="home.hotGoods.length">
-            <li v-for="item in home.hotGoods" :key="item.id">
-                <RouterLink to="/">
-                    <img v-lazy="item.picture" alt="" />
-                    <p class="name">{{ item.title }}</p>
-                    <p class="desc">{{ item.alt }}</p>
-                </RouterLink>
-            </li>
-        </ul>
-        <div class="home-skeleton" v-else>
-            <div class="item" v-for="i in 4" :key="i" :style="{ backgroundColor: '#f0f9f4' }">
-                <XtxSkeleton bg="#e4e4e4" :width="306" :height="306" animated />
-                <XtxSkeleton bg="#e4e4e4" :width="160" :height="24" animated />
-                <XtxSkeleton bg="#e4e4e4" :width="120" :height="24" animated />
+        <Transition name="fade">
+            <ul ref="pannel" class="goods-list" v-if="home.hotGoods.length">
+                <li v-for="item in home.hotGoods" :key="item.id">
+                    <RouterLink to="/">
+                        <img v-lazy="item.picture" alt="" />
+                        <p class="name">{{ item.title }}</p>
+                        <p class="desc">{{ item.alt }}</p>
+                    </RouterLink>
+                </li>
+            </ul>
+            <div class="home-skeleton" v-else>
+                <div class="item" v-for="i in 4" :key="i" :style="{ backgroundColor: '#f0f9f4' }">
+                    <XtxSkeleton bg="#e4e4e4" :width="306" :height="306" animated />
+                    <XtxSkeleton bg="#e4e4e4" :width="160" :height="24" animated />
+                    <XtxSkeleton bg="#e4e4e4" :width="120" :height="24" animated />
+                </div>
             </div>
-        </div>
+        </Transition>
     </HomePanel>
 </template>
 
