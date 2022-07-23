@@ -46,6 +46,9 @@ export const useLazyData = (callback: () => void) => {
             callback()
             stop()
         }
+    }, {
+        threshold: 0//阀值 解决bug 
+        // threshold 容器和可视区交叉的占比（进入的面积/容器完整面试） 取值，0-1 之间，默认比0大，所以需要滚动较多才能触发进入可视区域事件。
     })
     return {
         target

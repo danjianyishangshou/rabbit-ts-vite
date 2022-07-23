@@ -2,6 +2,8 @@
 import XtxSkeleton from '@/components/skeleton/index.vue'
 import XtxCarousel from '@/components/carousel/index.vue'
 import XtxMore from '@/components/more/index.vue'
+import Bread from '@/components/Bread/index.vue'
+import BreadItem from '@/components/Bread/Item.vue'
 // 引入第三方hooks工具
 import { useIntersectionObserver } from '@vueuse/core'
 import defaultImg from '@/assets/images/200.png'
@@ -12,6 +14,8 @@ export default {
         app.component(XtxSkeleton.name, XtxSkeleton)
         app.component(XtxCarousel.name, XtxCarousel)
         app.component(XtxMore.name, XtxMore)
+        app.component(Bread.name, Bread)
+        app.component(BreadItem.name, BreadItem)
         // 创建全局自定义指令
         app.directive('lazy', {
             // vue3 封装自定义指令 采用的是在mounted钩子里挂载

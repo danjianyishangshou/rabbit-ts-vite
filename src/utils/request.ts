@@ -3,7 +3,8 @@ import axios from 'axios'
 // 备用接口地址: http://pcapi-xiaotuxian-front-devtest.itheima.net/
 const example = axios.create({
     // 基地址
-    baseURL: 'http://pcapi-xiaotuxian-front.itheima.net/',
+    // baseURL: 'http://pcapi-xiaotuxian-front.itheima.net/',
+    baseURL: 'https://apipc-xiaotuxian-front.itheima.net/',
     // 请求时长
     timeout: 5000
 })

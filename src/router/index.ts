@@ -19,7 +19,7 @@ const router = createRouter({
             path: '/login', component: () => import('@/views/login/index.vue')
         },
         {
-            path: '/ceShi', component: () => import('@/components/lazy/index.vue')
+            path: '/ceShi', component: () => import('@/components/ceShi/index.vue')
         }
     ]
 })
