@@ -9,7 +9,8 @@ const { category } = useStore()
         <li class="home">
             <RouterLink to="/">首页</RouterLink>
         </li>
-        <li v-for="item in category.categoryList" :key="item.id" @mouseenter="category.show(item.id)"
+        <!-- 解决点击二级分类的时候回到顶部 会出现hover的效果 使用mousemove替换mouseenter事件 -->
+        <li v-for="item in category.categoryList" :key="item.id" @mousemove="category.show(item.id)"
             @mouseleave="category.hide(item.id)">
             <RouterLink :to="`/category/${item.id}`" @click="category.hide(item.id)">{{ item.name }}</RouterLink>
 

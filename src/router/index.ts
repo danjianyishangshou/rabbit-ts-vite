@@ -12,7 +12,8 @@ const router = createRouter({
             children: [
                 { path: '/', component: Home },
                 { path: '/category/:id', component: () => import('@/views/category/index.vue') },
-                { path: '/category/sub/:id', component: () => import('@/views/category/sub.vue') }
+                { path: '/category/sub/:id', component: () => import('@/views/category/sub.vue') },
+                { path: '/goods/:id', component: () => import('@/views/goods/index.vue') }
             ]
         },
         {
@@ -21,7 +22,11 @@ const router = createRouter({
         {
             path: '/ceShi', component: () => import('@/components/ceShi/index.vue')
         }
-    ]
+    ],
+    scrollBehavior(to, from, savedPosition) {
+        // 始终滚动到顶部
+        return { top: 0 }
+    },
 })
 export default router
 

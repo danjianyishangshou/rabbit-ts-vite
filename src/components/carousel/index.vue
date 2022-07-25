@@ -71,6 +71,7 @@ onUnmounted(() => {
     min-height: 150px;
     position: relative;
 
+
     .carousel {
         &-body {
             width: 100%;

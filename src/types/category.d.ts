@@ -1,4 +1,4 @@
-import { CategoryGoods } from './goods'
+import { CategoryGoods, GoodItem } from './goods'
 /**
  * 商品一级分类模块
  */
@@ -38,5 +38,40 @@ interface Children {
     categories?: any;
     brands?: any;
     saleProperties?: any;
+}
+
+
+/**
+ * 二级类目
+ */
+export type SaleProperty = {
+    id: string
+    name: string
+    properties: {
+        id: string
+        name: string
+    }[]
+}
+/**
+ * 二级类目
+ */
+export type SubCategory = {
+    id: string
+    name: string
+    picture?: any
+    parentId: string
+    parentName: string
+    brands: {
+        id: string
+        name: string
+        nameEn: string
+        logo: string
+        picture: string
+        type?: any
+        desc: string
+        place: string
+    }[]
+    saleProperties: SaleProperty[]
+    goods: GoodItem[]
 }
 
