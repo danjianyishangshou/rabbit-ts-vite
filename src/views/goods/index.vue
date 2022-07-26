@@ -2,6 +2,7 @@
 import GoodsImage from './components/goods-image.vue'
 import GoodsSales from './components/goods-sales.vue'
 import GoodsName from './components/goods-name.vue'
+import GoodsSku from './components/goods-sku.vue'
 import useStore from '@/store'
 import { storeToRefs } from 'pinia'
 import { watchEffect } from 'vue'
@@ -32,11 +33,16 @@ watchEffect(() => {
                 <!-- 商品信息 -->
                 <div class="goods-info">
                     <div class="media">
+                        <!-- 商品图片 -->
                         <GoodsImage :images="goodsInfo.mainPictures"></GoodsImage>
+                        <!-- 商品信息统计 -->
                         <GoodsSales></GoodsSales>
                     </div>
                     <div class="spec">
+                        <!-- 商品名称spu -->
                         <GoodsName :goods="goodsInfo"></GoodsName>
+                        <!-- 商品sku细分 -->
+                        <GoodsSku :goods="goodsInfo"></GoodsSku>
                     </div>
                 </div>
                 <!-- 商品详情 -->

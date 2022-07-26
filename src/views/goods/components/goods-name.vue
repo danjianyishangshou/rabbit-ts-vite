@@ -1,9 +1,13 @@
 <script lang="ts" setup name="GoodName">
 import { GoodsInfo } from '@/types/goods'
+import { ref } from 'vue';
 
 defineProps<{
     goods: GoodsInfo
 }>()
+
+
+const userAddress = ref('浙江省 杭州市 萧山区')
 </script>
 <template>
     <p class="g-name">{{ goods.name }}</p>
@@ -19,7 +23,9 @@ defineProps<{
         </dl>
         <dl>
             <dt>配送</dt>
-            <dd>至</dd>
+            <dd>至
+                <XtxCity :userAddress='userAddress' />
+            </dd>
         </dl>
         <dl>
             <dt>服务</dt>
