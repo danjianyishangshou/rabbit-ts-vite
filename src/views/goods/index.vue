@@ -16,6 +16,14 @@ watchEffect(() => {
         goods.getGoodsInfo(id as string)
     }
 })
+const changGoodsInfo = (skuId: string) => {
+    const info = goodsInfo.value.skus.find(item => item.id === skuId)
+    if (info) {
+        goodsInfo.value.oldPrice = info.oldPrice
+        goodsInfo.value.price = info.price
+        goodsInfo.value.inventory = info.inventory
+    }
+}
 </script>
 <template>
     <div class="xtx-goods-page">
@@ -42,7 +50,8 @@ watchEffect(() => {
                         <!-- 商品名称spu -->
                         <GoodsName :goods="goodsInfo"></GoodsName>
                         <!-- 商品sku细分 -->
-                        <GoodsSku :goods="goodsInfo"></GoodsSku>
+                        <GoodsSku :goods="goodsInfo" skuId="1369155873162661889" @changSkuId="changGoodsInfo">
+                        </GoodsSku>
                     </div>
                 </div>
                 <!-- 商品详情 -->

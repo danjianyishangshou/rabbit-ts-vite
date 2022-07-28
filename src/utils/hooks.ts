@@ -54,3 +54,49 @@ export const useLazyData = (callback: () => void) => {
         target
     }
 }
+
+/**
+ * 幂集的计算
+ *
+ * @param {*[]} originalSet
+ * @return {*[][]}
+ */
+export function bwPowerSet(originalSet: string[]) {
+    const subSets = [];
+    // 我们将有2^n种可能的组合(其中n是原始集合的长度)。
+    // 这是因为对于原始集合中的每一个元素，我们都要决定是否包含
+    //  是否(每个set元素有2个选项)。
+    const numberOfCombinations = 2 ** originalSet.length;
+    //  每一个从0到2^n的二进制数字都满足我们的需求: 
+    //它通过位(0或1)显示是否包含集合中的相关元素。 
+    //例如，对于集合{1,2,3}，0b010的二进制数意味着我们需要 
+    //只包含"2"到当前集。
+    for (let combinationIndex = 0; combinationIndex < numberOfCombinations; combinationIndex += 1) {
+        const subSet = [];
+
+        for (let setElementIndex = 0; setElementIndex < originalSet.length; setElementIndex += 1) {
+            //决定是否需要将当前元素包含到子集中。
+            if (combinationIndex & (1 << setElementIndex)) {
+                subSet.push(originalSet[setElementIndex]);
+            }
+        }
+        // 将当前子集添加到所有子集列表中。
+        subSets.push(subSet);
+    }
+    return subSets;
+}
+
+export function PowerSet(arr: string[]) {
+    const newArr = [];
+    const num = 2 ** arr.length;
+    for (let k = 0; k < num; k += 1) {
+        const arrItem = [];
+        for (let k = 0; k < arr.length; k += 1) {
+            if (k & (1 * (2 ^ k))) {
+                arrItem.push(arr[k]);
+            }
+        }
+        newArr.push(arrItem);
+    }
+    return newArr
+}
