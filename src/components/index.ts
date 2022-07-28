@@ -6,6 +6,7 @@ import Bread from '@/components/Bread/index.vue'
 import BreadItem from '@/components/Bread/Item.vue'
 import XtxCity from '@/components/city/index.vue'
 import XtxNumbox from '@/components/numBox/index.vue'
+import XtxButton from '@/components/button/index.vue'
 
 // 引入第三方hooks工具
 import { useIntersectionObserver } from '@vueuse/core'
@@ -21,6 +22,7 @@ export default {
         app.component(BreadItem.name, BreadItem)
         app.component(XtxCity.name, XtxCity)
         app.component(XtxNumbox.name, XtxNumbox)
+        app.component(XtxButton.name, XtxButton)
         // 创建全局自定义指令
         app.directive('lazy', {
             // vue3 封装自定义指令 采用的是在mounted钩子里挂载

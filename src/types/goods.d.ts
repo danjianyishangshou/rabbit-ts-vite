@@ -47,6 +47,7 @@ export type GoodsInfo = {
     }[]
     specs: Spec[]
     skus: Sku[]
+    details: GoodsDetail
 }
 /**
  * Spec信息 每一种规格信息集合
@@ -78,4 +79,14 @@ export type Sku = {
         name: string//具体所属的规格
         valueName: string//具体代表的信息
     }[]//sku代表的商品信息集合
+}
+/**
+ * 商品详情
+ */
+type GoodsDetail = {
+    pictures: string[]
+    properties: {
+        name: string
+        value: string
+    }[]
 }

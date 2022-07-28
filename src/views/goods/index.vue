@@ -3,6 +3,8 @@ import GoodsImage from './components/goods-image.vue'
 import GoodsSales from './components/goods-sales.vue'
 import GoodsName from './components/goods-name.vue'
 import GoodsSku from './components/goods-sku.vue'
+import GoodsDetail from './components/goods-detail.vue'
+import GoodsHot from './components/goods-hot.vue'
 import useStore from '@/store'
 import { storeToRefs } from 'pinia'
 import { ref, watchEffect } from 'vue'
@@ -60,17 +62,26 @@ const changGoodsInfo = (skuId: string) => {
                         </GoodsSku>
                         <!-- 计数组件 -->
                         <XtxNumbox showLabel v-model="count"></XtxNumbox>
+                        <!-- 提交按钮 -->
+                        <XtxButton size="middle" type="primary" style="margin-top:20px">加入购物车</XtxButton>
                     </div>
                 </div>
                 <!-- 商品详情 -->
                 <div class="goods-footer">
                     <div class="goods-article">
                         <!-- 商品+评价 -->
-
+                        <GoodsDetail :goods="goodsInfo"></GoodsDetail>
                         <div class="goods-tabs"></div>
                     </div>
                     <!-- 24热榜+专题推荐 -->
-                    <div class="goods-aside"></div>
+                    <div class="goods-aside">
+                        <!-- 24热榜+专题推荐 -->
+
+                        <GoodsHot :type="1" />
+                        <GoodsHot :type="2" />
+                        <GoodsHot :type="3" />
+
+                    </div>
                 </div>
             </template>
             <!-- 占位没有逻辑-->
@@ -112,6 +123,8 @@ const changGoodsInfo = (skuId: string) => {
         padding: 30px 30px 30px 0;
     }
 }
+
+
 
 .goods-footer {
     display: flex;
