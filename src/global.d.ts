@@ -5,6 +5,9 @@ import Bread from '@/components/Bread/index.vue'
 import BreadItem from '@/components/Bread/Item.vue'
 import XtxCity from '@/components/city/index.vue'
 import XtxNumbox from '@/components/button/index.vue'
+import XtxCheckbox from '@/components/checkbox/index.vue'
+import XtxMessage from '@/components/message/index.vue'
+
 
 // declare声明全局变量的时候添加
 declare module 'vue' {
@@ -17,6 +20,8 @@ declare module 'vue' {
         XtxCity: typeof XtxCity
         XtxNumbox: typeof XtxNumbox
         XtxButton: typeof XtxButton
+        XtxCheckbox: typeof XtxCheckbox
+        XtxMessage: typeof XtxMessage
     }
 }
 export { }
