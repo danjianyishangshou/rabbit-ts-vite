@@ -77,6 +77,7 @@ const getPathMap = () => {
 }
 const pathMap = getPathMap()
 
+
 //4. 在组件初始化=的时候去判断每个规格是否点击
 const updateDisabledStatus = (SelectedArr: string[]) => {
 
@@ -112,7 +113,7 @@ const defaultSelected = () => {
         })
     }
 }
-defaultSelected()
+
 // 获取选中的规格
 const getSelectedSpec = () => {
     const arr: string[] = []

@@ -16,8 +16,10 @@ export default defineStore('goods', {
                 },
             })
             this.goodsInfo = res.data.result
+        },
+        resetGoodsInfo() {
+            this.goodsInfo = {} as GoodsInfo
         }
-
     },
     getters: {}
 })

@@ -5,14 +5,19 @@ import GoodsName from './components/goods-name.vue'
 import GoodsSku from './components/goods-sku.vue'
 import useStore from '@/store'
 import { storeToRefs } from 'pinia'
-import { watchEffect } from 'vue'
+import { ref, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 const route = useRoute()
 const { goods } = useStore()
 const { goodsInfo } = storeToRefs(goods)
+const count = ref(1)
+// 清除路由缓存
 watchEffect(() => {
     const id = route.params.id
     if (route.fullPath === `/goods/${id}`) {
+        // 清除组件数据缓存,一种是重置表单 另外一种是组件加key
+        goods.resetGoodsInfo()
+        // 获取最新的数据
         goods.getGoodsInfo(id as string)
     }
 })
@@ -50,8 +55,11 @@ const changGoodsInfo = (skuId: string) => {
                         <!-- 商品名称spu -->
                         <GoodsName :goods="goodsInfo"></GoodsName>
                         <!-- 商品sku细分 -->
+                        <!--. 第二种方法 组件加key清除组件数据缓存:key="goodsInfo.id" -->
                         <GoodsSku :goods="goodsInfo" skuId="1369155873162661889" @changSkuId="changGoodsInfo">
                         </GoodsSku>
+                        <!-- 计数组件 -->
+                        <XtxNumbox showLabel v-model="count"></XtxNumbox>
                     </div>
                 </div>
                 <!-- 商品详情 -->
