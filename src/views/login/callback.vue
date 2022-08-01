@@ -7,9 +7,11 @@ import { ref } from 'vue'
 import useStore from '@/store'
 import Message from '@/components/message'
 import { useRouter } from 'vue-router'
+
 const router = useRouter()
 
 const { user } = useStore()
+
 const active = ref(true)
 
 const isLogin = QC.Login.check()

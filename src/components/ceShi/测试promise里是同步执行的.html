@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button class="btn">哈哈哈</button>
+    <script>
+        const btn = document.querySelector('.btn')
+
+        const clickHandler = () => {
+            new Promise(() => {
+                // promise 中的同步任务正常执行 是同步事件
+                console.log(123456)
+            })
+            console.log(54321)
+        }
+        btn.onclick = () => {
+            clickHandler()
+        }
+    </script>
+</body>
+
+</html>

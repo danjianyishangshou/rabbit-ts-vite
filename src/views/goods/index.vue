@@ -9,9 +9,13 @@ import useStore from '@/store'
 import { storeToRefs } from 'pinia'
 import { ref, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
+import Message from '@/components/message'
 const route = useRoute()
-const { goods } = useStore()
+const { goods, cart, user } = useStore()
 const { goodsInfo } = storeToRefs(goods)
+// 默认的skuID 后期根据数据返回来操作
+// 这里只是做了小奶锅的默认选中
+const currentSkuId = ref(route.params.id === '1369155859933827074' ? '1369155873162661889' : '')
 const count = ref(1)
 // 清除路由缓存
 watchEffect(() => {
@@ -22,13 +26,29 @@ watchEffect(() => {
         // 获取最新的数据
         goods.getGoodsInfo(id as string)
     }
+
 })
 const changGoodsInfo = (skuId: string) => {
+    currentSkuId.value = skuId
     const info = goodsInfo.value.skus.find(item => item.id === skuId)
     if (info) {
         goodsInfo.value.oldPrice = info.oldPrice
         goodsInfo.value.price = info.price
         goodsInfo.value.inventory = info.inventory
+    }
+}
+const addCart = () => {
+    if (!currentSkuId.value) {
+
+        Message.warning('请选择完整规格')
+        return
+    } else {
+        if (user.profile.id) {
+            cart.addCart({ skuId: currentSkuId.value, count: count.value })
+        } else {
+            console.log('加入本地购物车')
+        }
+
     }
 }
 </script>
@@ -63,7 +83,8 @@ const changGoodsInfo = (skuId: string) => {
                         <!-- 计数组件 -->
                         <XtxNumbox showLabel v-model="count"></XtxNumbox>
                         <!-- 提交按钮 -->
-                        <XtxButton size="middle" type="primary" style="margin-top:20px">加入购物车</XtxButton>
+                        <XtxButton size="middle" type="primary" style="margin-top:20px" @click="addCart">加入购物车
+                        </XtxButton>
                     </div>
                 </div>
                 <!-- 商品详情 -->

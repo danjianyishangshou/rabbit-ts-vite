@@ -17,7 +17,6 @@ const emits = defineEmits(['changSkuId'])
 // 设置选中状态
 const changeSelected = (item: Spec, sub: SpecValue) => {
 
-
     if (sub.disabled) return //当点击按钮禁用的时候 禁止按钮禁用
     if (sub.selected) {
         sub.selected = false
@@ -35,6 +34,9 @@ const changeSelected = (item: Spec, sub: SpecValue) => {
         const key = getSelectedSpec().join('+')
         const [skuId] = pathMap[key]
         emits('changSkuId', skuId)
+    } else {
+        // 把是否是完整规格的判断再加入购物车的判断交给父级判断
+        emits('changSkuId', '')
     }
 }
 /**
@@ -113,7 +115,7 @@ const defaultSelected = () => {
         })
     }
 }
-
+defaultSelected()
 // 获取选中的规格
 const getSelectedSpec = () => {
     const arr: string[] = []

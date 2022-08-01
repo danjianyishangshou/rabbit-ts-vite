@@ -1,20 +1,17 @@
 <script setup lang="ts">
-import { h, render, ref, onMounted } from 'vue'
-import XtxMessage from '@/components/message/index.vue'
-const target = ref<Element | null>(null)
-const VNode = h(
-    XtxMessage,
-    { type: 'success', text: '这是一首简单的小情歌' },
-)
-onMounted(() => {
-    render(VNode, target.value!)
-    setTimeout(() => {
-        render(null, target.value!)
-    }, 2000);
-})
+import XtxConfirm from '../confirm/confirm.vue'
+import { Confirm } from '../confirm'
+const handler = () => {
+    Confirm({ text: "are you render" }).then(() => {
+        console.log('成功')
+    }).catch(() => {
+        console.log('失败')
+    })
+}
 </script>
 <template>
-    <div id="box" ref="target">
+    <div>
+        <button @click="handler">打开</button>
     </div>
 </template>
 <style scoped>
