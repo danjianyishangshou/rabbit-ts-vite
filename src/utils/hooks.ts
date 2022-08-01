@@ -1,4 +1,4 @@
-import { useIntersectionObserver } from '@vueuse/core'
+import { useIntersectionObserver, useIntervalFn } from '@vueuse/core'
 import { onMounted, onUnmounted, ref } from 'vue'
 
 /**
@@ -99,4 +99,33 @@ export function PowerSet(arr: string[]) {
         newArr.push(arrItem);
     }
     return newArr
+}
+
+/**
+ * 封装倒计时
+ * @param count 
+ * @returns 
+ */
+export const useCountDown = (count = 60) => {
+    const time = ref(0)
+    const { pause, resume } = useIntervalFn(() => {
+        time.value--
+        if (time.value <= 0) {
+            pause()
+        }
+    }, 1000,
+        {
+            immediate: false
+        })
+    onUnmounted(() => {
+        pause()
+    })
+    const start = () => {
+        time.value = count
+        resume()
+    }
+    return {
+        time,
+        start
+    }
 }

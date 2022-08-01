@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { Profile } from '@/types/user'
+import { Profile, validate, validateFrom } from '@/types/user'
 import { ApiRes } from '@/types/data'
 import request from '@/utils/request'
 import { setProfile, getProfile, removeProfile } from '@/utils/storage'
@@ -41,6 +41,19 @@ export default defineStore({
             setProfile(res.data.result)
         },
         /**
+         * QQ第三方登录
+         * @param openId 
+         */
+        async qqLogin(openId: string) {
+            const res = await request.post<ApiRes<Profile>>('/login/social', {
+                unionId: openId,
+                source: 6
+            })
+            // 1. 保存用户信息到 state 中
+            this.profile = res.data.result
+            setProfile(res.data.result)
+        },
+        /**
          * 获取验证码
          */
         async sendCodeMag(mobile: string) {
@@ -52,7 +65,61 @@ export default defineStore({
         logout() {
             this.profile = {} as Profile
             removeProfile()
+        },
+        /**
+         * 绑定qq的短信验证码
+         * @param mobile 
+         */
+        async sendQQBindMsg(mobile: string) {
+            await request.get('/login/social/code', {
+                params: {
+                    mobile
+                }
+            })
+        },
+        /**
+        * 绑定qq
+        * @param mobile 
+        */
+        async socialBindMsg(unionId: string, mobile: string, code: string) {
+            const res = await request.post('/login/social/bind', {
+                unionId,
+                mobile,
+                code
+            })
+            console.log(res)
+            // 1. 保存用户信息到 state 中
+            this.profile = res.data.result
+            setProfile(res.data.result)
+        },
+
+        /**
+         *  没有账号绑定qq的短信验证码
+         * @param mobile 
+         */
+        async sendQQPathMsg(mobile: string) {
+            await request.get('/register/code', {
+                params: {
+                    mobile
+                }
+            })
+        },
+        /**
+         * 没有账号切没有绑定过qq信息的情况
+         * @param data 
+         */
+        async qqPatchLogin(data: any) {
+            console.log(data)
+
+            const res = await request.post<ApiRes<Profile>>(
+                `/login/social/${data.openId}/complement`,
+                data
+            )
+            // 1. 保存用户信息到 state 中
+            this.profile = res.data.result
+            setProfile(res.data.result)
         }
     },
     getters: {}
 })
+

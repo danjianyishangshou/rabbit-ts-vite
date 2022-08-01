@@ -1,7 +1,7 @@
 <script lang="ts" setup name="XtxMessage">
-import { PropType } from 'vue'
+import { onMounted, PropType, ref } from 'vue'
 
-defineProps({
+const props = defineProps({
     type: {
         type: String as PropType<'success' | 'error' | 'warning'>,
         default: 'success',
@@ -9,6 +9,10 @@ defineProps({
     text: {
         type: String,
         default: '这是一条消息'
+    },
+    duration: {
+        type: Number,
+        default: 1500
     }
 })
 
@@ -33,11 +37,27 @@ const style = {
         borderColor: 'rgb(225, 243, 216)',
     },
 }
+let flag = true
+
+const isShow = ref(false)
+onMounted(() => {
+    let timer = (-1)
+    clearTimeout(timer)
+    isShow.value = true
+    if (flag) {
+        timer = window.setTimeout(() => {
+            clearTimeout(timer)
+            isShow.value = false
+            flag = false
+        }, props.duration)
+    }
+})
 </script>
 
 <template>
-    <Transition name="fade">
-        <div class="xtx-message" :style="style[type]">
+    <!-- 注意transition必须要有一个开关 -->
+    <Transition name="down">
+        <div class="xtx-message" :style="style[type]" v-show="isShow">
             <i class="iconfont" :class="style[type].icon"></i>
             <span class="text">
                 {{ text }}
@@ -73,25 +93,35 @@ const style = {
 
 }
 
-.fade {
-    transition: all .5;
-
+.down {
     &-enter {
-        transform: translateY(-100%);
-        opacity: 0;
+        &-from {
+            transform: translateY(-200%);
+            opacity: 0;
+        }
+
+        &-active {
+            transition: all .5s;
+        }
 
         &-to {
-            transform: translateY(0);
+            transform: none;
             opacity: 1;
         }
     }
 
     &-leave {
-        transform: translateY(0);
-        opacity: 1;
+        &-from {
+            transform: none;
+            opacity: 1;
+        }
+
+        &-active {
+            transition: all .2s;
+        }
 
         &-to {
-            transform: translateY(-100%);
+            transform: translateY(200%);
             opacity: 0;
         }
     }

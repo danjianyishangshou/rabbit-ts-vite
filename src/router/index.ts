@@ -20,8 +20,12 @@ const router = createRouter({
             path: '/login', component: () => import('@/views/login/index.vue')
         },
         {
+            path: '/login/callback', component: () => import('@/views/login/callback.vue')
+        },
+        {
             path: '/ceShi', component: () => import('@/components/ceShi/index.vue')
         }
+
     ],
     scrollBehavior(to, from, savedPosition) {
         // 始终滚动到顶部
