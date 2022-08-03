@@ -13,7 +13,10 @@ const router = createRouter({
                 { path: '/', component: Home },
                 { path: '/category/:id', component: () => import('@/views/category/index.vue') },
                 { path: '/category/sub/:id', component: () => import('@/views/category/sub.vue') },
-                { path: '/goods/:id', component: () => import('@/views/goods/index.vue') }
+                { path: '/goods/:id', component: () => import('@/views/goods/index.vue') },
+                {
+                    path: '/cart', component: () => import('@/views/cart/index.vue')
+                },
             ]
         },
         {
@@ -22,6 +25,7 @@ const router = createRouter({
         {
             path: '/login/callback', component: () => import('@/views/login/callback.vue')
         },
+
         {
             path: '/ceShi', component: () => import('@/components/ceShi/index.vue')
         }

@@ -1,15 +1,26 @@
 <script setup lang="ts" name="AppHeaderCart">
-import useStore from '@/store/index.js';
+import { Confirm } from '@/components/confirm';
+import useStore from '@/store';
+import { useRouter } from 'vue-router';
+useRouter
+const { cart, user } = useStore()
+const delCartItem = (SkuIds: string[]) => {
+    Confirm({
+        text: '亲,确认删除吗?'
+    }).then(() => {
+        cart.deleteCartList(SkuIds)
+    })
+}
 
-const { cart } = useStore()
 cart.getCartList()
+
 </script>
 
 <template>
     <div class="cart">
-        <a class="curr" href="javascript:;">
+        <RouterLink class="curr" :to="'/cart'">
             <i class="iconfont icon-cart"></i><em v-if="cart.effectiveListCount">{{ cart.effectiveListCount }}</em>
-        </a>
+        </RouterLink>
         <div class="layer" v-if="$route.path !== '/cart' && cart.effectiveList.length">
             <div class="list">
                 <div class="item" v-for="item in cart.effectiveList" :key="item.id">
@@ -26,7 +37,7 @@ cart.getCartList()
                             <p class="count">x{{ item.count }}</p>
                         </div>
                     </RouterLink>
-                    <i class="iconfont icon-close-new" @click="cart.deleteCartList([item.skuId])"></i>
+                    <i class="iconfont icon-close-new" @click="delCartItem([item.skuId])"></i>
                 </div>
             </div>
             <div class="foot">
@@ -34,7 +45,7 @@ cart.getCartList()
                     <p>共 {{ cart.effectiveListCount }} 件商品</p>
                     <p>&yen;{{ cart.effectiveListPrice }}</p>
                 </div>
-                <XtxButton type="plain">去购物车结算</XtxButton>
+                <XtxButton type="plain" @click="$router.push('/cart')">去购物车结算</XtxButton>
             </div>
         </div>
     </div>

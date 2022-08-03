@@ -22,7 +22,7 @@ const changeBox = () => {
         <i class="iconfont icon-checked" v-if="modelValue"> </i>
         <i class="iconfont icon-unchecked" v-else></i>
         <span>
-            <slot>提示文本</slot>
+            <slot></slot>
         </span>
     </div>
 </template>

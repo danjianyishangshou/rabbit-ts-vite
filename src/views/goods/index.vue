@@ -10,6 +10,7 @@ import { storeToRefs } from 'pinia'
 import { ref, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import Message from '@/components/message'
+import { CartItem } from '@/types/cart'
 const route = useRoute()
 const { goods, cart, user } = useStore()
 const { goodsInfo } = storeToRefs(goods)
@@ -37,17 +38,30 @@ const changGoodsInfo = (skuId: string) => {
         goodsInfo.value.inventory = info.inventory
     }
 }
+// 加入购物车
 const addCart = () => {
     if (!currentSkuId.value) {
-
         Message.warning('请选择完整规格')
         return
     } else {
-        if (user.profile.id) {
-            cart.addCart({ skuId: currentSkuId.value, count: count.value })
-        } else {
-            console.log('加入本地购物车')
-        }
+        // 找到对应的sku的商品
+        const sku = goodsInfo.value.skus.find(item => item.id === currentSkuId.value)
+        // 根据这个商品获取商品的信息 拼接attrsText字段
+        const attrsText = sku!.specs.map(item => item.name + ":" + item.valueName).join(' ')
+        cart.addCart({
+            // 本地添加
+            id: goodsInfo.value.id,
+            name: goodsInfo.value.name,
+            picture: goodsInfo.value.mainPictures[0],
+            price: goodsInfo.value.price,
+            count: count.value,
+            skuId: currentSkuId.value,
+            attrsText,//购物车下方的商品信息
+            selected: true,
+            nowPrice: goodsInfo.value.price,
+            stock: goodsInfo.value.inventory,
+            isEffective: true,
+        } as CartItem)
 
     }
 }
@@ -63,7 +77,7 @@ const addCart = () => {
                     </XtxBreadItem>
                     <XtxBreadItem :to="`/category/sub/${goodsInfo.categories[0].id}`">{{ goodsInfo.categories[0].name }}
                     </XtxBreadItem>
-                    <XtxBreadItem to="/">{{ goodsInfo.name }}</XtxBreadItem>
+                    <XtxBreadItem :to="`/goods/${goodsInfo.id}`">{{ goodsInfo.name }}</XtxBreadItem>
                 </XtxBread>
                 <!-- 商品信息 -->
                 <div class="goods-info">

@@ -3,6 +3,7 @@ import { Profile, validate, validateFrom } from '@/types/user'
 import { ApiRes } from '@/types/data'
 import request from '@/utils/request'
 import { setProfile, getProfile, removeProfile } from '@/utils/storage'
+
 export default defineStore({
     id: 'user',
     state() {

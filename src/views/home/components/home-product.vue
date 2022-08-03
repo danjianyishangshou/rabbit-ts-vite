@@ -10,7 +10,8 @@ const { target } = useLazyData(home.getProductList)
         <HomePanel :title="item.name" :subTitle="item.saleInfo" v-for="item in home.productList" :key="item.id">
             <template v-slot:right>
                 <div class="good">
-                    <RouterLink to="/" v-for='sub in item.children' :key="sub.id">{{ sub.name }}</RouterLink>
+                    <RouterLink :to="`/goods/${sub.id}`" v-for='sub in item.children' :key="sub.id">{{ sub.name }}
+                    </RouterLink>
                     <!-- <RouterLink to="/">水果</RouterLink>
                     <RouterLink to="/">蔬菜</RouterLink>
                     <RouterLink to="/">水产</RouterLink>
@@ -19,7 +20,7 @@ const { target } = useLazyData(home.getProductList)
                 <XtxMore />
             </template>
             <div class="box">
-                <RouterLink class="cover" to="/">
+                <RouterLink class="cover" :to="`/category/${item.id}`">
                     <img v-lazy="item.picture" alt="" style="object-fit:cover ;" />
                     <strong class="label">
                         <span>{{ item.name }}</span>
@@ -29,14 +30,14 @@ const { target } = useLazyData(home.getProductList)
                 <ul class="goods-list">
                     <li v-for="good in item.goods" :key="good.id">
                         <div class="goods-item">
-                            <RouterLink to="/" class="image">
+                            <RouterLink :to="`/goods/${good.id}`" class="image">
                                 <img v-lazy="good.picture" alt="" />
                             </RouterLink>
                             <p class="name ellipsis-2">{{ good.name }}</p>
                             <p class="desc ellipsis">{{ good.desc }}</p>
                             <p class="price">&yen;{{ good.price }}</p>
                             <div class="extra">
-                                <RouterLink to="/">
+                                <RouterLink :to="`/category/${good.id}`">
                                     <span>找相似</span>
                                     <span>发现现多宝贝 &gt;</span>
                                 </RouterLink>

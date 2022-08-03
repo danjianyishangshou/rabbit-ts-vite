@@ -19,7 +19,7 @@ import {
 const { time, start } = useCountDown(60)
 
 const router = useRouter()
-const { user } = useStore()
+const { user, cart } = useStore()
 const type = ref<'account' | 'mobile'>('account')
 //#region 
 // const isAgree = ref(true)
@@ -118,6 +118,10 @@ const login = async () => {
     } else {
         if (result.errors.mobile || result.errors.code || result.errors.isAgree) return
         await user.mobileLogin(mobile.value, code.value)
+    }
+    // 登录的时候合并购物车
+    if (cart.list.length) {
+        cart.mergeLocalCart()
     }
     Message.success('登录成功')
     router.push('/')

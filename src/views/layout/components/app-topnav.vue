@@ -1,10 +1,20 @@
 <script lang="ts" setup name="AppTopnav">
-import Message from '@/components/message';
+import { Confirm } from '@/components/confirm'
+import Message from '@/components/message'
 import useStore from '@/store'
-const { user } = useStore()
-const clickLogout = () => {
-    user.logout()
-    Message.warning('退出成功')
+import { useRouter } from 'vue-router'
+const router = useRouter()
+const { user, cart } = useStore()
+const clickLogout = async () => {
+    await Confirm({
+        text: '亲,确认退出吗?'
+    }).then(async () => {
+        Message.warning('退出成功')
+        cart.loginOut()
+        router.push('/login')
+        await user.logout()
+    })
+
 }
 </script>
 

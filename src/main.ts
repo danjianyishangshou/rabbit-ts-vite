@@ -7,8 +7,13 @@ import '@/assets/styles/common.less'
 import router from '@/router/index'
 // 引入pinia
 import { createPinia } from 'pinia'
+
 // 创建pinia实例并且通过插件挂载
 const pinia = createPinia()
+// 引入pinia持久化工具 并使用use挂载
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+// 挂载持久化工具
+pinia.use(piniaPluginPersistedstate)
 // 引入全局组件
 import XtxUI from './components'
 // 在vue实例上挂载插件并将vue挂载到根标签上

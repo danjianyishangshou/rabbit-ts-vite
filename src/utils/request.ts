@@ -40,7 +40,7 @@ example.interceptors.response.use(
             if (message === '三方登录失败' && code === '501') {
                 Message.warning('亲,请于账号进行绑定', 3000)
             } else {
-                Message.error(message)
+                // Message.error(message)
             }
         } else {
             Message.error('网络异常,请稍后重试')
