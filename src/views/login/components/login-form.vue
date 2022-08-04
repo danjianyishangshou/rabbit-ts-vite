@@ -1,6 +1,6 @@
 <script lang="ts" setup name="LoginForm">
 import Message from '@/components/message'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import useStore from '@/store'
 import { ref, watch } from 'vue'
 // 表单验证
@@ -19,6 +19,7 @@ import {
 const { time, start } = useCountDown(60)
 
 const router = useRouter()
+const route = useRoute()
 const { user, cart } = useStore()
 const type = ref<'account' | 'mobile'>('account')
 //#region 
@@ -123,8 +124,9 @@ const login = async () => {
     if (cart.list.length) {
         cart.mergeLocalCart()
     }
+    const redirectUrl = route.query.redirectUrl as string || '/'
     Message.success('登录成功')
-    router.push('/')
+    router.push(redirectUrl)
     //错误捕获在相应拦截器
 }
 </script>

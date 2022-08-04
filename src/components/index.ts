@@ -9,6 +9,8 @@ import XtxNumbox from '@/components/numBox/index.vue'
 import XtxButton from '@/components/button/index.vue'
 import XtxCheckbox from '@/components/checkbox/index.vue'
 import XtxMessage from '@/components/message/index.vue'
+import XtxDialog from '@/components/dialog/index.vue'
+import XtxSwitch from '@/components/switch/index.vue'
 
 // 引入第三方hooks工具
 import { useIntersectionObserver } from '@vueuse/core'
@@ -27,6 +29,8 @@ export default {
         app.component(XtxButton.name, XtxButton)
         app.component(XtxCheckbox.name, XtxCheckbox)
         app.component(XtxMessage.name, XtxMessage)
+        app.component(XtxDialog.name, XtxDialog)
+        app.component(XtxSwitch.name, XtxSwitch)
         // 创建全局自定义指令
         app.directive('lazy', {
             // vue3 封装自定义指令 采用的是在mounted钩子里挂载

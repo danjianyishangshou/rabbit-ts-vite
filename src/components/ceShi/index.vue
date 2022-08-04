@@ -1,17 +1,20 @@
 <script setup lang="ts">
-import XtxConfirm from '../confirm/confirm.vue'
-import { Confirm } from '../confirm'
-const handler = () => {
-    Confirm({ text: "are you render" }).then(() => {
-        console.log('成功')
-    }).catch(() => {
-        console.log('失败')
-    })
+import { ref } from 'vue';
+let show = ref(false)
+const showHandler = () => {
+    show.value = true
 }
 </script>
 <template>
     <div>
-        <button @click="handler">打开</button>
+        <button @click="showHandler">点击切换</button>
+        <XtxDialog title="小情歌" v-model:visible="show">
+            这是一首简单的小情歌
+            <template #footer>
+                <XtxButton type="gray" style="margin-right: 20px" @click="show = false">取消</XtxButton>
+                <XtxButton type="primary">确认</XtxButton>
+            </template>
+        </XtxDialog>
     </div>
 </template>
 <style scoped>

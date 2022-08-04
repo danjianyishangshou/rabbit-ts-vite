@@ -3,9 +3,10 @@ import useStore from '@/store'
 import axios, { AxiosError } from 'axios'
 
 // 备用接口地址: http://pcapi-xiaotuxian-front-devtest.itheima.net/
+export const baseURL = "http://pcapi-xiaotuxian-front.itheima.net/"
 const example = axios.create({
     // 基地址
-    baseURL: 'http://pcapi-xiaotuxian-front.itheima.net/',
+    baseURL,
     // baseURL: 'https://apipc-xiaotuxian-front.itheima.net/',
     // 请求时长
     timeout: 5000

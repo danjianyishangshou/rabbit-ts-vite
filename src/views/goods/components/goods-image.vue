@@ -23,7 +23,7 @@ const position = computed(() => {
 <template>
     <div class="goods-image">
         <div class="large"
-            :style="[{ backgroundImage: `url(${images[current]})`, backgroundPosition: `${-position.x * 2}px, ${position.y * 2}px` }]"
+            :style="[{ backgroundImage: `url(${images[current]})`, backgroundPosition: `${-position.x * 2}px ${-position.y * 2}px` }]"
             v-show="!isOutside"></div>
         <div class="middle" ref="target">
             <img :src="images[current]" alt="" />

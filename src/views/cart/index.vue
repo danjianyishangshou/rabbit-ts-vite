@@ -1,6 +1,8 @@
 <script setup lang="ts" name="Cart">
 import { Confirm } from '@/components/confirm';
 import useStore from '@/store';
+import { useRouter } from 'vue-router';
+const router = useRouter()
 const { cart } = useStore()
 const delCartItem = async (SkuIds: string[]) => {
     await Confirm({ text: '亲,确认删除吗?' })
@@ -14,6 +16,11 @@ const changeCount = async (skuId: string, count: any) => {
 }
 const changeAllSelected = async (flag: boolean) => {
     await cart.updateCartAllSelected(flag)
+}
+const goCheckout = () => {
+    if (cart.selectedList.length) {
+        router.push('/member/checkout')
+    }
 }
 </script>
 
@@ -105,7 +112,7 @@ const changeAllSelected = async (flag: boolean) => {
                 <div class="total">
                     共 {{ cart.effectiveListCount }} 件有效商品，已选择 {{ cart.selectedListCount }} 件，商品合计：
                     <span class="red">¥{{ cart.selectedListPrice }}</span>
-                    <XtxButton type="primary">下单结算</XtxButton>
+                    <XtxButton type="primary" @click="goCheckout"> 下单结算</XtxButton>
                 </div>
             </div>
         </div>
