@@ -7,11 +7,13 @@ import vueSetupExtend from 'vite-plugin-vue-setup-extend'
 import path from 'path'
 // https://vitejs.dev/config/
 //define定义 config配置
+// 引入jsx语法
+import vueJsx from '@vitejs/plugin-vue-jsx'
 export default defineConfig({
   // 插件
   plugins: [vue({
     reactivityTransform: true//反应性转换 解决ts中prop给默认值的问题
-  }), vueSetupExtend()],//vueSetupExtend 设置组件名字 
+  }), vueSetupExtend(), vueJsx()],//vueSetupExtend 设置组件名字 
   // 解析
   resolve: {
     //别名
@@ -31,14 +33,14 @@ export default defineConfig({
     }
   },
   // 开发模式配置
-  server: {
-    // QQ三方登录的回调uri为：http://www.corho.com:8080/#/login/callback
-    // vite 中配置： www.corho.com:8080
-    host: "www.corho.com",
-    port: 8080,
-    // 其他有价值的配置项
-    open: true, // 帮我们打开浏览器
-    cors: true, // 允许开发时 ajax 跨域
-  },
+  // server: {
+  //   // QQ三方登录的回调uri为：http://www.corho.com:8080/#/login/callback
+  //   // vite 中配置： www.corho.com:8080
+  //   host: "www.corho.com",
+  //   port: 8080,
+  //   // 其他有价值的配置项
+  //   open: true, // 帮我们打开浏览器
+  //   cors: true, // 允许开发时 ajax 跨域
+  // },
 })
 
